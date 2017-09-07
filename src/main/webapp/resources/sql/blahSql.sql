@@ -3,7 +3,7 @@ CREATE TABLE G_type
 (
 	type_idx             NUMBER(1) NOT NULL ,
 	type_name            VARCHAR2(50) NULL ,
-	type_status          NUMBER(1) NULL 
+	type_status          NUMBER(1) DEFAULT  1  NULL 
 );
 
 CREATE UNIQUE INDEX XPKG_type ON G_type
@@ -17,7 +17,7 @@ CREATE TABLE Member
 	id                   VARCHAR2(50) NULL ,
 	name                 VARCHAR2(18) NULL ,
 	birth                NUMBER NULL ,
-	status               NUMBER(1) NULL ,
+	status               NUMBER(1) DEFAULT  1  NULL ,
 	p_img                VARCHAR2(100) NULL ,
 	address              VARCHAR2(100) NULL ,
 	phone                VARCHAR2(20) NULL ,
@@ -38,7 +38,7 @@ CREATE TABLE G_member
 	g_idx                NUMBER NOT NULL ,
 	m_idx                NUMBER NULL ,
 	g_regDate            DATE NULL ,
-	g_status             NUMBER(1) NULL ,
+	g_status             NUMBER(1) DEFAULT  1  NULL ,
 	type_idx             NUMBER(1) NULL 
 );
 
@@ -55,7 +55,7 @@ CREATE TABLE G_wall
 	gw_img               VARCHAR2(100) NULL ,
 	gw_likes             NUMBER NULL ,
 	gw_regDate           DATE NULL ,
-	gw_status            NUMBER(1) NULL ,
+	gw_status            NUMBER(1) DEFAULT  1  NULL ,
 	g_idx                NUMBER NULL ,
 	gw_video             VARCHAR2(100) NULL 
 );
@@ -72,7 +72,7 @@ CREATE TABLE G_comment
 	gc_text              VARCHAR2(500) NULL ,
 	gc_like              NUMBER NULL ,
 	gc_regDate           DATE NULL ,
-	gc_status            NUMBER(1) NULL ,
+	gc_status            NUMBER(1) DEFAULT  1  NULL ,
 	gw_seq               NUMBER NULL ,
 	g_idx                NUMBER NULL 
 );
@@ -88,7 +88,8 @@ CREATE TABLE Message
 	m_idx                NUMBER NULL ,
 	msg_idx              NUMBER NOT NULL ,
 	msg                  VARCHAR2(500) NULL ,
-	msg_date             CHAR(18) NULL 
+	msg_date             DATE NULL ,
+	msg_status           NUMBER(1) DEFAULT  1  NULL 
 );
 
 CREATE UNIQUE INDEX XPKMessage ON Message
@@ -102,7 +103,8 @@ CREATE TABLE ReMessage
 	remsg_idx            NUMBER NOT NULL ,
 	msg_idx              NUMBER NULL ,
 	re_msg               VARCHAR2(500) NULL ,
-	remsg_date           DATE NULL 
+	remsg_date           DATE NULL ,
+	remsg_status         NUMBER(1) DEFAULT  1  NULL 
 );
 
 CREATE UNIQUE INDEX XPKReMessage ON ReMessage
@@ -119,7 +121,7 @@ CREATE TABLE Wall
 	video                VARCHAR2(100) NULL ,
 	likes                NUMBER NULL ,
 	reg_date             DATE NULL ,
-	status               NUMBER(1) NULL ,
+	status               NUMBER(1) DEFAULT  1  NULL ,
 	m_idx                NUMBER NULL 
 );
 
@@ -128,16 +130,15 @@ CREATE UNIQUE INDEX XPKWall ON Wall
 
 ALTER TABLE Wall
 	ADD CONSTRAINT  XPKWall PRIMARY KEY (w_seq);
---------
----------
+
 CREATE TABLE comment_tbl
 (
 	text                 VARCHAR2(500) NULL ,
-	likes                 NUMBER NULL ,
+	likes                NUMBER NULL ,
 	c_seq                NUMBER NOT NULL ,
 	w_seq                NUMBER NULL ,
 	reg_date             DATE NULL ,
-	status               NUMBER(1) NULL ,
+	status               NUMBER(1) DEFAULT  1  NULL ,
 	m_idx                NUMBER NULL 
 );
 
@@ -151,7 +152,8 @@ CREATE TABLE Friend
 (
 	f_seq                NUMBER NOT NULL ,
 	frriend_idx          NUMBER NULL ,
-	m_idx                NUMBER NULL 
+	m_idx                NUMBER NULL ,
+	friend_status        NUMBER(1) DEFAULT  1  NULL 
 );
 
 CREATE UNIQUE INDEX XPKFollow ON Friend
@@ -193,8 +195,5 @@ ALTER TABLE comment_tbl
 ALTER TABLE Friend
 	ADD (CONSTRAINT R_7 FOREIGN KEY (frriend_idx) REFERENCES Member (m_idx) ON DELETE SET NULL);
 
-
 ALTER TABLE Friend
 	ADD (CONSTRAINT R_17 FOREIGN KEY (m_idx) REFERENCES Member (m_idx) ON DELETE SET NULL);
-
-commit;
