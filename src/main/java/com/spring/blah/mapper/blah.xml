@@ -2,4 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="blah">
 
+
+
+	<!-- insert id="add" parameterType="com.spring.blah.model.WallVO">
+		
+		insert into Wall(w_seq, text, reg_date, status )
+		Values(w_seq.Nextval, #{text}, default, default)
+		
+	</insert> -->
 </mapper>
